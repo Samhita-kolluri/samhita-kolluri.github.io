@@ -56,13 +56,8 @@
  *      ## animate intro content
  * # resume 
  *      ## resume block
- * # portfolio
- *      ## portfolio list
- *      ## modal popup
- * # CTA
- * # testimonials
- *      ## swiper style overrides
- *      ## testimonial slider 
+ * # portfolio "aka applied projects"
+ *      ## projects sliding deck
  * # contact
  *      ## contact block
  * # footer
@@ -3001,7 +2996,7 @@ input[type="button"].btn--primary:focus {
 
 .mailtoui-button:focus .mailtoui-button-content {
     background-color: var(--color-1);
-    color: white;
+    color: #ffffff;
 }
 
 .mailtoui-button-content, .mailtoui-button-copy {
@@ -3953,7 +3948,11 @@ input[type="button"].btn--primary:focus {
     padding-top: calc(6 * var(--space));
     padding-bottom: var(--vspace-5);
 }
-
+.s-resume__section {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--vspace-0_75);
+    margin-bottom: var(--vspace-2_5);
+}
 .s-portfolio h3 {
     margin-top: 0;
 }
@@ -3962,9 +3961,10 @@ input[type="button"].btn--primary:focus {
     text-align: center;
 }
 
+
 /* ------------------------------------------------------------------- 
  * ## portfolio list
- * ------------------------------------------------------------------- */
+ * ------------------------------------------------------------------- 
 .folio-list {
     max-width: 1180px;
     margin-top: var(--vspace-2_5);
@@ -4044,7 +4044,7 @@ input[type="button"].btn--primary:focus {
 }
 
 /* on hover
- *---------------------------------------------- */
+ *---------------------------------------------- 
 .folio-item:hover .folio-item__thumb::before {
     opacity: 1;
     visibility: visible;
@@ -4071,7 +4071,7 @@ input[type="button"].btn--primary:focus {
 
 /* ------------------------------------------------------------------- 
  * ## modal popup
- * ------------------------------------------------------------------- */
+ * -------------------------------------------------------------------
 .modal-popup {
     max-width: 680px;
     background-color: white;
@@ -4149,7 +4149,7 @@ input[type="button"].btn--primary:focus {
     border-color: var(--color-1);
     color: white;
 }
-
+ */
 
 /* ===================================================================
  * # CTA
