@@ -1,0 +1,146 @@
+
+.portfolio-slide-deck-wrapper {
+  position: relative;
+  max-width: 1000px;
+  width: 100%;
+  padding: 0 80px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.portfolio-slide-deck {
+  overflow: hidden;
+  background: var(--color-white, #fff);
+  border-radius: var(--border-radius, 10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.slide {
+  display: none;
+  flex-direction: row;
+  height: 400px;
+  box-sizing: border-box;
+}
+
+.slide.active {
+  display: flex;
+}
+
+.slide-image {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 10px 0px 0px 10px;
+}
+.slide-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px 0 0 10px;
+}
+.slide-text {
+  flex: 1;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--color-text, #333);
+  box-sizing: border-box;
+  border-radius: 0 30px 30px 0;
+}
+.slide-text p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin-bottom: 10px; 
+}
+.slide-text ul {
+  font-size: 1.5rem; 
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.slide-text h3 {
+  border-radius: 0 30px 30px 0;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  color: var(--color-text-dark, #333);
+}
+
+.slide-text .tech-stack {
+  font-style: italic;
+  color: var(--color-text-light, #555);
+  margin-bottom: 15px;
+}
+button.prev, button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;  
+  border: none;      
+  font-size: 2.5rem; 
+  color: var(--color-text-dark, #333); 
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+button.prev:hover, button.next:hover {
+  color: var(--color-1, #11ABB0);
+}
+
+button.prev {
+  left: -50px; 
+}
+
+button.next {
+  right: -50px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.dot {
+  text-align: center;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  background-color: var(--color-gray-7, #bbb);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dot.active {
+  background-color: var(--color-text-dark, #333);
+}
+
+@media (max-width: 768px) {
+  .portfolio-slide-deck-wrapper {
+    padding: 0 20px;
+  }
+  .slide {
+    flex-direction: column;
+    height: auto;
+  }
+  .slide-image img {
+    border-radius: 10px 10px 0 0;
+  }
+  .slide-image, .slide-text {
+    flex: unset;
+    width: 100%;
+  }
+  button.prev, button.next {
+    top: 45%;
+    left: 10px;
+    right: 10px;
+  }
+  button.prev {
+    left: 10px;
+  }
+  button.next {
+    right: 10px;
+  }
+}

@@ -14,14 +14,15 @@
     ================================================== -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/portfolio-slide-deck.css">
     <!-- script
     ================================================== -->
     <script defer src="js/vendor/fontawesome/all.min.js"></script>
     <!-- favicons
     ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="iamge.png">
     <link rel="manifest" href="site.webmanifest">
 </head>
 <body id="top" class="ss-preload">
@@ -152,6 +153,7 @@
                         <div class="card">Vector Databases</div>
                         <div class="card">Tableau</div>
                         <div class="card">PowerBI</div>
+                        <div class="card">Snowflake</div>
                      </div>
                 </div> <!-- end resume-block -->
             </div>
@@ -169,9 +171,9 @@
                     <div class="resume-block__header">
                         <h4 class="h3">AI Research Engineer</h4>
                         <p class="resume-block__header-meta">
-                            <span>Stellis Labs <a href="" target="_blank" rel="Labs"></a></span><br>
+                            <span>Stellis Labs - <a href="https://www.bearbrown.co/#home" target="_blank" rel="Labs">Bear Brown and Company</a></span><br>
                             <span class="resume-block__header-date">
-                                Jan 2025 - Present <br>
+                                Jan 2025 - May 2025 <br>
                             </span>
                         </p>
                     </div>
@@ -189,7 +191,7 @@
                         <p class="resume-block__header-meta">
                             <span>Northeastern University - <a href = "https://northeastern.edu/" target="_blank" rel="noopener noreferrer">Graduate Courses</a></span><br>
                             <span  class="resume-block__header-date">
-                                December 2024 - Present
+                                December 2024 - May 2025
                             </span>
                         </p>
                     </div>
@@ -337,173 +339,103 @@
 
     <!-- portfolio
     ================================================== -->
-    <section id="portfolio" class="s-portfolio target-section">
-        <div class="row s-portfolio__header">
-            <div class="column large-12">
-                <h3>Applied Projects</h3>
+    <section id="portfolio" class="s-portfolio target-section">            
+        <div class="portfolio-slide-deck-wrapper">
+            <h3 class="section-header-allcaps">Applied Projects</h3>
+            <div class="portfolio-slide-deck">
+                <!-- Slides -->
+                 <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/portfolio/PhysioPro_Project.jpeg" alt="PhysioPro">
+                    </div>
+                    <div class="slide-text">
+                        <h3>PhysioPro</h3>
+                        <p class="tech-stack">Generative AI, Snowflake Cloud, OpenCV, Cortex, Data Engineering, Large Language Models (LLM)</p>
+                        <ul><li>Developed a physiotherapy assistance tool that improved movement correction accuracy by 30% using Procrustes analysis and Dynamic Time Warping (DTW) for keypoint alignment.</li>
+                            <li>Developed a 3D motion pipeline with MediaPipe and OpenCV, cutting feedback cycles by 50%.</li>
+                            <li>Integrated AI recommendations with Cortex Mistral 7B and Snowflake, boosting adherence by 25%.</li>
+                        </ul>
+                        <p><a href="https://github.com/Samhita-kolluri/PhysioPro" target="_blank" rel="noopener noreferrer" class="github-link"><i class="fab fa-github"></i> View on GitHub</a>
+                            <a href="https://medium.com/@samhitakolluri/from-theory-to-practice-research-driving-physiopros-ai-motion-correction-4ac64eb84333" target="_blank" rel="noopener noreferrer" class="medium-link"><i class="fab fa-medium"></i>  Read on Medium </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/portfolio/contrastive.png" alt="contrastive idea search module">
+                    </div>
+                    <div class="slide-text">
+                        <h3>contrastive idea search module</h3>
+                        <p class="tech-stack">Generative AI, Chroma DB, LLaMA, Hugging face, Fine Tuning, Agent-based Modeling</p>
+                        <ul><li>Designed and Developed a Contrastive Ideas Search Module to identify semantically opposing viewpoints on shared topics.</li>
+                            <li>Built a hybrid embedding framework leveraging mxbai-embed-large and a <a href="https://huggingface.co/Samhita-kolluri/llama-contrastive-module-stance" target="_blank" rel="noopener noreferrer"> fine-tuned LLaMA 3 model</a> trained on SNLI for semantic opposition detection.</li>
+                            <li>Implemented multi-vector indexing with ChromaDB, enabling efficient retrieval and ranking.</li>
+                        </ul>
+                        <p><a href="https://github.com/Samhita-kolluri/contrastive-module" target="_blank" rel="noopener noreferrer" class="github-link"><i class="fab fa-github"></i> View on GitHub  </a>
+                            <a href="https://medium.com/@samhitakolluri/devils-advocating-into-nlp-building-a-contrastive-ideas-search-module-with-llms-and-vectors-103de48665aa" target="_blank" rel="noopener noreferrer" class="medium-link"><i class="fab fa-medium"></i> Read on Medium </a>
+                        </p>
+                        </div>
+                    </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/portfolio/SEMANTIC.png" alt="SEMANTIC">
+                    </div>
+                    <div class="slide-text">
+                        <h3>SEMANTIC</h3>
+                        <p class="tech-stack">Python, Deep Learning, PyTorch, NLP, Transformers (BERT)</p>
+                        <ul><li>Developed a multi-class classification system "SEMANTIC" to identify and categorize news articles using an IAB-labelled dataset from Hugging Face.</li>
+                            <li>Fine-tuned transformer models for efficient, context-aware classification in imbalanced data scenarios.</li>
+                        </ul>
+                        <p><a href="https://github.com/Samhita-kolluri/SEMANTIC" target="_blank" rel="noopener noreferrer" class="github-link"><i class="fab fa-github"></i> View on GitHub</a></p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/portfolio/SysTune.png" alt="SysTune:LLM-Based Hardware-Software Parameter Optimization">
+                    </div>
+                    <div class="slide-text">
+                        <h3>SysTune: LLM-based Hardware-Software </h3>
+                        <p class="tech-stack">Python, OpenAI GPT-4, HPC</p>
+                        <ul><li>Developed an LLM-based autotuning system to optimize hardware and software parameters iteratively, enhancing resource utilization and throughput for high-performance computing by 30%.</li>
+                            <li>Built a Prompt Generator for context-aware LLM prompts, enhancing parameter suggestion quality.</li>
+                            <li>Designed an Option Evaluator to parse LLM responses and extract optimal parameters.</li>
+                        </ul>
+                        <p><a href="https://github.com/Samhita-kolluri/SysTuneC" target="_blank" rel="noopener noreferrer" class="github-link"><i class="fab fa-github"></i> View on GitHub</a></p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/portfolio/thrift.png" alt="Thrift Store Inventory Management System">
+                     </div>
+                     <div class="slide-text">
+                        <h3>Thrift Store Inventory Management System</h3>
+                        <p class="tech-stack">Python, R, SQL/NoSQL, Machine Learning</p>
+                        <p>Designed a full-stack system for inventory tracking, donation management, and customer loyalty programs, using dynamic pricing and customer analytics to increase revenue and efficiency by 35%.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/portfolio/data-nyc.png" alt="Data Unveiled: NYC Airbnb Analysis">
+                    </div>
+                    <div class="slide-text">
+                        <h3>Data Unveiled: NYC Airbnb Analysis</h3>
+                        <p class="tech-stack">Python, Data Analysis, Machine Learning, Visualization, XGBoost/Random Forest</p>
+                        <p>Performed predictive modeling and interactive geo-mapping of NYC Airbnb data to identify price-driving factors, improve booking rates, and empower hosts with data-driven insights.</p>
+                    </div>
+                </div>
             </div>
-            <div class="row collapse block-large-1-4 block-medium-1-3 block-tab-1-2 block-500-stack folio-list">
-                <div class="column folio-item"  style="width: 300px; height: 300px;">
-                    <a href="#modal-01" class="folio-item__thumb">
-                        <img src="images/portfolio/SEMANTIC.png" 
-                             srcset="images/portfolio/SEMANTIC.png 1x, 
-                                     images/portfolio/SEMANTIC.png 2x" alt=""
-                                     style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; border-radius: 10px;">
-                        <div>SEMANTIC</div>
-    
-                    </a>
-                </div> <!-- end folio-item -->
-    
-                <div class="column folio-item" style="width: 300px; height: 300px;">
-                    <a href="#modal-02" class="folio-item__thumb">
-                        <img src="images/portfolio/SysTune.png" 
-                             srcset="images/portfolio/SysTune.png 1x, 
-                                     images/portfolio/SysTune.png 2x" alt=""
-                                     style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; border-radius: 10px;">
-                        <div>SysTune</div>
-                    </a>
-                </div> <!-- end folio-item -->
-    
-                <div class="column folio-item" style="width: 300px; height: 300px;">
-                    <a href="#modal-03" class="folio-item__thumb">
-                        <img src="images/portfolio/thrift.png" 
-                             srcset="images/portfolio/thrift.png 1x, 
-                                     images/portfolio/thrift.png 2x" alt="" 
-                                     style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; border-radius: 10px;">
-                        <div>ThriftStore</div>
-                    </a>
-                </div> <!-- end folio-item -->
-    
-                <div class="column folio-item">
-                    <a href="#modal-04" class="folio-item__thumb">
-                        <img src="images/portfolio/data-nyc.jpg" 
-                             srcset="images/portfolio/data-nyc.png 1x, 
-                                     images/portfolio/data-nyc.png 2x" alt=""
-                                     style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ddd; border-radius: 10px;">
-                        <div>Data Unveiled: NYC Airbnb</div>
-                    </a>
-                </div> <!-- end folio-item -->
-
-                <!---other projects-->
-        </div> 
-    </section>
-    <!-- Modal Templates Popup
-    =========================================================== -->
-    <!--SEMANTIC Project-->
-    <div id="modal-01" hidden>
-        <div class="modal-popup" style="overflow-x: hidden;">
-            <button class="modal-popup__link" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-                <a href="https://github.com/Samhita-kolluri/SEMANTIC" class="modal-popup__details" target="_blank" rel="noopener noreferrer">link</a>
-            </button>
-    
-            <div class="modal-popup__desc">
-                <h5>SEMANTIC</h5>
-                <p>Systematic Evaluation of Multi-class Article News-Text Identification and Categorization</p>
-                <p><strong>Project Link:</strong> <a href="https://github.com/Samhita-kolluri/SEMANTIC" target="_blank" rel="noopener noreferrer">https://github.com/Samhita-kolluri/SEMANTIC</a></p>
-                <ul>
-                    <li>Developed a multi-class classification system "SEMANTIC" to identify and categorize news articles, utilizing an IAB-labelled dataset from Hugging Face for fine-grained category detection in imbalanced data scenarios.</li>
-                    <li>Applied state-of-the-art transformer models via Hugging Face Transformers, fine-tuning on GPU to maximize efficiency.</li>
-                    <li>Enhanced contextual embedding for superior handling of complex, multi-class text categorization.</li>
-                </ul>
-                <ul class="modal-popup__cat">
-                    <li>Python</li>
-                    <li>Deep Learning</li>
-                    <li>Machine Learning</li>
-                    <li>PyTorch</li>
-                    <li>Natural Language Processing</li>
-                    <li>Multi-class Classification</li>
-                    <li>Transformers (BERT)</li>
-                </ul>
-            </div>
-        </div>
-
-    </div> <!-- end modal -->
-    <!--SysTune Project-->
-    <div id="modal-02" hidden>
-        <div class="modal-popup" style="overflow-x: hidden;">  
-            <button class="modal-popup__link" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-                <a href="https://github.com/Samhita-kolluri" class="modal-popup__details" target="_blank" rel="noopener noreferrer">Project link</a>
-            </button>
-    
-            <div class="modal-popup__desc">
-                <h5>SysTune</h5>
-                <p>LLM-Based Hardware-Software Parameter Optimization System for HPC</p>
-                <p><strong>Overview:</strong> Developed an autotuning system using OpenAI's GPT-4, optimizing hardware and software iteratively to improve HPC performance.</p>
-               <!-- <p><strong>Project Link:</strong> <a href="https://github.com/Samhita-kolluri/" target="_blank" rel="noopener noreferrer">SysTune Link</a></p>-->
-                <ul>
-                    <li>Enhanced parameter tuning accuracy by 30% through advanced parsing techniques and iterative adjustments.</li>
-                    <li>Improved resource utilization and throughput for high-performance computing applications.</li>
-                    <li>Designed an Option Evaluator to parse LLM responses and extract new parameter values for further evaluation.</li>
-                </ul>
-                <ul class="modal-popup__cat">
-                    <li>Python</li>
-                    <li>Deep Learning</li>
-                    <li>OpenAI GPT-4</li>
-                    <li>Parameter Optimization</li>
-                    <li>High-Performance Computing (HPC)</li>
-                    <li>AI System Design</li>
-                </ul>
+            <!-- Navigation Buttons -->
+             <button class="prev">&#10094;</button><button class="next">&#10095;</button>
+             <!-- Dots -->
+              <div class="dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </div>
-    </div>
-    <!-- Thrift store Project-->
-    <div id="modal-03" hidden>
-        <div class="modal-popup" style="overflow-x: hidden;">  
-            <button class="modal-popup__link" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-              <a href="https://github.com/Samhita-kolluri" class="modal-popup__details" target="_blank" rel="noopener noreferrer">Project link</a>
-            </button>
-    
-            <div class="modal-popup__desc">
-                <h5>Thrift Store Inventory Management System</h5>
-                <p>Comprehensive Inventory, Donation, and Customer Management Platform for Sustainable Thrift Stores</p>
-              <!--    <p><strong>Project Link:</strong> <a href="https://github.com/Samhita-kolluri" target="_blank" rel="noopener noreferrer">https://github.com/Samhita-kolluri</a></p> -->
-                <ul>
-                    <li>Developed a full-stack system using SQL and NoSQL databases to streamline inventory tracking, donation management, and customer engagement, improving operational efficiency by 35%.</li>
-                    <li>Implemented Python and R-based inventory turnover analysis, optimizing restocking strategies, reducing stockouts by 25%, and increasing sales by 15%.</li>
-                    <li>Built machine learning models (XGBoost, Random Forest) for dynamic pricing and loyalty program design, boosting revenue by 20% and repeat customer rate by 20%.</li>
-                    <li>Performed market research and strategic assessments, driving a 20% revenue increase and supporting marketing initiatives.</li>
-                </ul>
-                <ul class="modal-popup__cat">
-                    <li>Python</li>
-                    <li>R</li>
-                    <li>SQL / NoSQL</li>
-                    <li>Machine Learning</li>
-                    <li>Data Analytics</li>
-                    <li>Inventory Optimization</li>
-                    <li>Customer Loyalty Modeling</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- DATA NYC Project-->
-    <div id="modal-04" hidden>
-        <div class="modal-popup" style="overflow-x: hidden;">  
-            <button class="modal-popup__link" style="position: absolute; top: 10px; right: 10px; background: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
-              <a href="https://github.com/Samhita-kolluri" class="modal-popup__details" target="_blank" rel="noopener noreferrer">Project link</a>
-            </button>
-    
-            <div class="modal-popup__desc">
-                <h5>Data Unveiled: NYC Airbnb Analysis</h5>
-                <p>Comprehensive Analysis and Predictive Modeling on Airbnb Rentals in New York City</p>
-             <!--   <p><strong>Project Link:</strong> <a href="https://github.com/Samhita-kolluri" target="_blank" rel="noopener noreferrer">https://github.com/Samhita-kolluri</a></p>-->
-                <ul>
-                    <li>Performed data analysis on NYC Airbnb datasets to identify key factors affecting rental prices, occupancy rates, and spatial distribution across neighborhoods, increasing host awareness by 40%.</li>
-                    <li>Executed comparative modeling with K-NN, Decision Tree, Logistic Regression, Random Forest, and XGBoost to improve model selection accuracy by 25% and enhance prediction performance.</li>
-                    <li>Developed an interactive geo-map visualization highlighting price-driving factors, boosting data-driven decision-making by 30% and contributing to a 15% increase in bookings.</li>
-                </ul>
-                <ul class="modal-popup__cat">
-                    <li>Python</li>
-                    <li>Data Analysis</li>
-                    <li>Machine Learning</li>
-                    <li>Data Visualization</li>
-                    <li>Interactive Geo-Mapping</li>
-                    <li>XGBoost / Random Forest</li>
-                    <li>Predictive Modeling</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- end modal -->
     </section> <!-- end s-portfolio -->
 
     <!-- contact
@@ -545,5 +477,6 @@
     ================================================== -->
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/portfolio-slide-deck.js"></script>
 </body>
 </html>
