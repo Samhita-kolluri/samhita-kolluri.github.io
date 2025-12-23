@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samhita Kolluri | AI Research Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00FF00;
+            --primary-dim: #00AA00;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border: #222;
+            --accent: #00FF00;
+        }
+
+        body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Matrix rain background */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 5px var(--primary); }
+            25% { text-shadow: -2px 0 5px var(--primary), 2px 0 5px var(--primary-dim); }
+            50% { text-shadow: 2px 0 5px var(--primary-dim), -2px 0 5px var(--primary); }
+            75% { text-shadow: 0 0 10px var(--primary); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .typing-text {
+            border-right: 2px solid var(--primary);
+            padding-right: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blinkCaret 0.8s infinite;
+        }
+
+        @keyframes blinkCaret {
+            0%, 50% { border-color: var(--primary); }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--text-secondary);
+            animation: fadeIn 0.5s 0.4s forwards;
+            opacity: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            animation: fadeIn 0.5s 0.5s forwards;
+            opacity: 0;
+        }
+
+        .social-icon {
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            padding: 0.5rem;
+        }
+
+        .social-icon:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+            filter: drop-shadow(0 5px 10px rgba(0, 255, 0, 0.5));
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 0.5s 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-secondary);
+            color: var(--bg-dark);
+            box-shadow: 0 10px 20px rgba(160, 160, 160, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            color: var(--primary);
+        }
+
+        .section-title::before {
+            content: '> ';
+            color: var(--primary-dim);
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        }
+
+        .about-content h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-details h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .download-cv {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .download-cv:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: var(--primary);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border: 2px solid var(--bg-dark);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+            animation: pulse 2s infinite;
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .timeline-title {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--primary-dim);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .timeline-description ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-description li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .timeline-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 0, 0.1);
+            color: var(--primary);
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--primary);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .skill-category:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid var(--primary-dim);
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .skill-item:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.3);
+        }
+
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .education-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .education-title {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-degree {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Research Section Styles */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .research-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .research-card.patent-card {
+            border-color: var(--primary-dim);
+            background: linear-gradient(135deg, rgba(0, 255, 0, 0.05), transparent);
+        }
+
+        .research-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.15);
+        }
+
+        .research-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: var(--primary);
+            color: var(--bg-dark);
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .research-title {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .research-date {
+            color: var(--primary-dim);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .research-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .research-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .research-link {
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .research-link:hover {
+            text-shadow: 0 0 10px var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* Talks Section */
+        .talks-section {
+            margin-top: 3rem;
+        }
+
+        .subsection-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .talks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .talk-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .talk-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .talk-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .talk-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .talk-meta {
+            color: var(--primary-dim);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .talk-card p:last-child {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        /* Terminal Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--primary);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-bg"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://user-images.githubusercontent.com/63050133/156777293-72a6e681-2582-4a9d-ad92-09d1181d47c7.gif" 
+                     alt="Logo" 
+                     style="width: 40px; height: 40px; vertical-align: middle;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#contact">Connect</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="terminal-prompt">$ whoami</div>
+            <h1>Samhita Kolluri</h1>
+            <p class="hero-subtitle">
+                <span class="typing-text" id="typing-text"></span>
+            </p>
+            <p class="hero-description">
+                Building autonomous AI systems with a focus on multi-agent architectures, 
+                MLOps, and social impact. MS Data Analytics Engineering @ Northeastern University | Dec 2025.
+            </p>
+            
+            <!-- Social Icons -->
+            <div class="social-icons">
+                <a href="https://github.com/samhita-kolluri" class="social-icon" title="GitHub">
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/samhita-kolluri" class="social-icon" title="LinkedIn">
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="https://huggingface.co/Samhita-kolluri" class="social-icon" title="HuggingFace">
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3-9c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm6 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-3 5c2.21 0 4-1.79 4-4h-8c0 2.21 1.79 4 4 4z"/>
+                    </svg>
+                </a>
+                <a href="https://medium.com/@samhitakolluri" class="social-icon" title="Medium">
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                    </svg>
+                </a>
+                <a href="https://scholar.google.com/citations?hl=en&user=R7fgXngAAAAJ" class="social-icon" title="Google Scholar">
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#contact" class="btn">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    Get In Touch
+                </a>
+                <a href="assets/samhita-kolluri_resume.pdf" class="btn btn-secondary">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Download CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-container">
+            <img class="about-image" src="images/sam.jpg" alt="Samhita Kolluri">
+            <div class="about-content">
+                <h3>Building the Future of AI</h3>
+                <p>
+                    A graduate student at Northeastern University specializing in Data Science, Machine Learning, and AI, 
+                    with a deep focus on Large Language Models (LLMs) and cutting-edge generative AI techniques. 
+                    Currently working as an AI Research Engineer at Bear Brown & Company (Stellis Labs) and serving as a Teaching Assistant at Northeastern University.
+                </p>
+                <p>
+                    With over 3 years of professional experience including roles at Cognizant as a Senior Data Engineer, 
+                    I've optimized complex property and casualty insurance data pipelines, transforming large-scale data into actionable insights. 
+                    My passion lies in harnessing AI to solve real-world challenges and building innovative solutions that make a difference.
+                </p>
+                <p>
+                    I'm eager to connect with like-minded innovators and explore opportunities to push the boundaries of technology. 
+                    Currently seeking AI/ML Engineering opportunities in Boston & SF Bay Area where I can continue building systems that matter.
+                </p>
+                
+                <div class="contact-details">
+                    <h4>Contact Details</h4>
+                    <div class="contact-item">📍 Boston, MA • Open to relocation</div>
+                    <div class="contact-item">✉️ <a href="mailto:samhita.kolluri@gmail.com">samhita.kolluri@gmail.com</a></div>
+                    <div class="contact-item">💼 <a href="https://linkedin.com/in/samhita-kolluri">LinkedIn Profile</a></div>
+                </div>
+                
+                <a href="assets/samhita-kolluri_resume.pdf" class="download-cv">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px;">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">Jan 2025 - May 2025 · Part-time · Hybrid</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">AI Research Engineer</h3>
+                    <div class="timeline-company">Bear Brown and Company | Boston, MA</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Agentic AI Systems: Developed autonomous multi-agent workflows for the Stellis Labs & Humanitarians AI collaboration under Prof. Nik Brown, utilizing LangGraph for complex decision-making</li>
+                            <li>Advanced RAG Architecture: Engineered Contrastive Ideas Search Module using fine-tuned LLaMA-3 and ChromaDB, achieving 40% higher relevance in synthesizing opposing viewpoints</li>
+                            <li>System Observability: Built memory retention layers and monitoring tools for LLM agents, significantly reducing hallucination rates</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">LangGraph</span>
+                        <span class="tech-tag">LLaMA-3</span>
+                        <span class="tech-tag">ChromaDB</span>
+                        <span class="tech-tag">Agentic AI</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Dec 2024 - Jun 2025 · Part-time · On-site</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Graduate Teaching Assistant</h3>
+                    <div class="timeline-company">Northeastern University College of Engineering | Boston, MA</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Technical Mentorship: Mentoring graduate students in Data Mining & GenAI applications, providing code reviews and architectural guidance</li>
+                            <li>Lab Instruction: Designing and leading interactive labs on data storytelling and analytics with Power BI and Python</li>
+                            <li>Curriculum Optimization: Partnering with Prof. Mohammad Dehghani to modernize IE 5374 curriculum</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">Data Visualization</span>
+                        <span class="tech-tag">University Lecturing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Aug 2022 - Jul 2023 · Full-time · Hybrid</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Senior AI Data Engineer</h3>
+                    <div class="timeline-company">Cognizant | Hyderabad, India</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Enterprise ETL Optimization: Led Fortune 500 Insurance client's data warehouse modernization, migrating legacy Informatica to optimized SQL</li>
+                            <li>Performance Tuning: Re-architected critical reconciliation pipelines achieving 99% efficiency gain via vectorized operations</li>
+                            <li>Data Quality Assurance: Implemented automated audit frameworks reducing production incidents by 25%</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">ETL</span>
+                        <span class="tech-tag">Informatica</span>
+                        <span class="tech-tag">Query Optimization</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Aug 2021 - Aug 2022 · Full-time</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">AI Data Engineer</h3>
+                    <div class="timeline-company">Cognizant AI Services | Generative AI Research Lab (Confidential Client)</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>LLM Data Infrastructure: Engineered high-throughput PySpark pipelines on Databricks for LLM pre-training text corpora</li>
+                            <li>Gold Standard Dataset Creation: Designed distributed transformation logic supporting state-of-the-art foundation models</li>
+                            <li>Pipeline Optimization: Reduced processing latency by 20% ensuring data fidelity for model alignment</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">PySpark</span>
+                        <span class="tech-tag">Databricks</span>
+                        <span class="tech-tag">LLM Pre-training</span>
+                        <span class="tech-tag">Distributed Computing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">Mar 2021 - Aug 2021 · Internship · Hybrid</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Data Engineering Intern</h3>
+                    <div class="timeline-company">Cognizant AI Services</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Internal Data Tooling: Developed Spring Boot application for automated SQL query generation</li>
+                            <li>Database Connectivity: Implemented optimized JDBC patterns for secure data transmission</li>
+                            <li>Automation & Quality: Engineered Selenium scripts ensuring 100% uptime for stakeholders</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">JDBC</span>
+                        <span class="tech-tag">Selenium</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-date">May 2020 - Jun 2020 · Research Internship</div>
+                <div class="timeline-content">
+                    <h3 class="timeline-title">Computer Vision Research Intern</h3>
+                    <div class="timeline-company">Bennett University | India</div>
+                    <div class="timeline-description">
+                        <ul>
+                            <li>Deep Learning Model: Led Automated Sign Language Recognition system achieving 98.56% validation accuracy</li>
+                            <li>Algorithm Design: Implemented Kirsch compass masks and edge detection for real-time video processing</li>
+                            <li>Performance Optimization: Fine-tuned facial expression models on Fer-2013 dataset achieving 86% accuracy</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-tech">
+                        <span class="tech-tag">CNNs</span>
+                        <span class="tech-tag">OpenCV</span>
+                        <span class="tech-tag">Computer Vision</span>
+                        <span class="tech-tag">TensorFlow</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <span class="project-tag">FLAGSHIP PROJECT</span>
+                <h3 class="project-title">HomieHub</h3>
+                <p class="project-description">
+                    AI-powered housing recommendation platform addressing bias in Boston's rental market. 
+                    Processing 350,000+ records with 5-lane microservices architecture on GCP.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">GCP</span>
+                    <span class="tech-tag">Apache Airflow</span>
+                    <span class="tech-tag">MLflow</span>
+                    <span class="tech-tag">Fairlearn</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/samhita-kolluri/HomieHub" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="project-tag">GENERATIVE AI</span>
+                <h3 class="project-title">PhysioPro</h3>
+                <p class="project-description">
+                    GenAI motion correction system improving movement accuracy by 30% using Procrustes analysis, 
+                    DTW, and Snowflake Cortex Mistral 7B for real-time physiotherapy assistance.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Snowflake Cortex</span>
+                    <span class="tech-tag">MediaPipe</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">DTW</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Samhita-kolluri/PhysioPro" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://medium.com/@samhitakolluri/from-theory-to-practice-research-driving-physiopros-ai-motion-correction-4ac64eb84333" class="project-link" title="Medium">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="project-tag">MULTI-AGENT</span>
+                <h3 class="project-title">Contrastive Ideas Search</h3>
+                <p class="project-description">
+                    Hybrid embedding framework leveraging fine-tuned LLaMA-3 on HuggingFace for semantic 
+                    opposition detection with multi-vector indexing using ChromaDB.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">LLaMA-3</span>
+                    <span class="tech-tag">ChromaDB</span>
+                    <span class="tech-tag">HuggingFace</span>
+                    <span class="tech-tag">RAG</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Samhita-kolluri/contrastive-module" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://huggingface.co/Samhita-kolluri/llama-contrastive-module-stance" class="project-link" title="HuggingFace">
+                        <span style="font-size: 20px;">🤗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="project-tag">OPTIMIZATION</span>
+                <h3 class="project-title">SysTune</h3>
+                <p class="project-description">
+                    LLM-based autotuning system optimizing hardware/software parameters iteratively, 
+                    enhancing HPC resource utilization and throughput by 30%.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">GPT-4</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">HPC</span>
+                    <span class="tech-tag">Ray</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Samhita-kolluri/SysTuneC" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="project-tag">NLP</span>
+                <h3 class="project-title">SEMANTIC</h3>
+                <p class="project-description">
+                    Multi-class classification system to identify and categorize news articles using 
+                    IAB-labelled dataset with fine-tuned BERT transformers.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">BERT</span>
+                    <span class="tech-tag">PyTorch</span>
+                    <span class="tech-tag">Transformers</span>
+                    <span class="tech-tag">NLP</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/Samhita-kolluri/SEMANTIC" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <span class="project-tag">DATA ANALYTICS</span>
+                <h3 class="project-title">NYC Airbnb Analysis</h3>
+                <p class="project-description">
+                    Predictive modeling and interactive geo-mapping of NYC Airbnb data using 
+                    XGBoost/Random Forest to identify price-driving factors.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">XGBoost</span>
+                    <span class="tech-tag">Random Forest</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Visualization</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link" title="GitHub">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Arsenal</h2>
+        <div class="skills-container">
+            <div class="skill-category">
+                <h3>AI/ML & LLMs</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Fine-tuning LLMs</span>
+                    <span class="skill-item">LangChain</span>
+                    <span class="skill-item">LLaMA-3</span>
+                    <span class="skill-item">GPT-4</span>
+                    <span class="skill-item">BERT</span>
+                    <span class="skill-item">Multi-Agent Systems</span>
+                    <span class="skill-item">RAG Architecture</span>
+                    <span class="skill-item">Prompt Engineering</span>
+                    <span class="skill-item">Reinforcement Learning</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Deep Learning & Computer Vision</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Deep Learning</span>
+                    <span class="skill-item">Computer Vision</span>
+                    <span class="skill-item">OpenCV</span>
+                    <span class="skill-item">MediaPipe</span>
+                    <span class="skill-item">CNN</span>
+                    <span class="skill-item">LSTM</span>
+                    <span class="skill-item">TensorFlow</span>
+                    <span class="skill-item">PyTorch</span>
+                    <span class="skill-item">NLP</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>MLOps & Data Engineering</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Apache Airflow</span>
+                    <span class="skill-item">MLflow</span>
+                    <span class="skill-item">Weights & Biases</span>
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">Kubernetes</span>
+                    <span class="skill-item">CI/CD</span>
+                    <span class="skill-item">DBT</span>
+                    <span class="skill-item">Informatica PowerCenter</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Cloud & Databases</h3>
+                <div class="skill-list">
+                    <span class="skill-item">GCP</span>
+                    <span class="skill-item">AWS</span>
+                    <span class="skill-item">Snowflake</span>
+                    <span class="skill-item">Databricks</span>
+                    <span class="skill-item">ChromaDB</span>
+                    <span class="skill-item">Pinecone</span>
+                    <span class="skill-item">Vector Databases</span>
+                    <span class="skill-item">BigQuery</span>
+                    <span class="skill-item">MongoDB</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Languages & Frameworks</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">R</span>
+                    <span class="skill-item">SQL</span>
+                    <span class="skill-item">PySpark</span>
+                    <span class="skill-item">FastAPI</span>
+                    <span class="skill-item">Streamlit</span>
+                    <span class="skill-item">React</span>
+                    <span class="skill-item">JavaScript</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Analytics & Visualization</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Tableau</span>
+                    <span class="skill-item">PowerBI</span>
+                    <span class="skill-item">Data Analysis</span>
+                    <span class="skill-item">Data Visualization</span>
+                    <span class="skill-item">Random Forest</span>
+                    <span class="skill-item">XGBoost</span>
+                    <span class="skill-item">Support Vector Machine</span>
+                    <span class="skill-item">Clustering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2 class="section-title">Education</h2>
+        <div class="education-grid">
+            <div class="education-card">
+                <h3 class="education-title">Northeastern University</h3>
+                <p class="education-degree">Master of Science in Data Analytics Engineering</p>
+                <p class="education-date">College of Engineering | August 2023 - December 2025 | GPA: 3.8</p>
+                <p class="education-description">
+                    <strong>Relevant Coursework:</strong> Machine Learning Operations (MLOps), 
+                    Gen AI w/ LLM in Data Engineering, Natural Language Processing, 
+                    Large Language Model based Dialogue Agents, Data Mining in Engineering, 
+                    Data Management for Analytics, Computation and Visualization for Analytics, 
+                    Foundations for Data Analytics Engineering
+                </p>
+            </div>
+            
+            <div class="education-card">
+                <h3 class="education-title">VNR Vignana Jyothi Institute of Engineering and Technology</h3>
+                <p class="education-degree">Bachelor of Technology in Computer Science and Engineering</p>
+                <p class="education-date">July 2021</p>
+                <p class="education-description">
+                    <strong>Relevant Coursework:</strong> Data Structures & Algorithms, Object-Oriented Programming, 
+                    Operating Systems, Database Management Systems, Artificial Intelligence & Neural Networks, 
+                    Cyber Security, Internet of Things (IoT)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research">
+        <h2 class="section-title">Research & Impact</h2>
+        
+        <div class="research-grid">
+            <div class="research-card patent-card">
+                <div class="research-badge">PATENT</div>
+                <h3 class="research-title">AI and IoT-Based Integrated Approach for COVID-19 Prevention</h3>
+                <p class="research-date">December 2021 | Application Num: 202141054101</p>
+                <p class="research-description">
+                    Hardware-software integrated system combining Computer Vision and IoT sensors for automated public health monitoring.
+                </p>
+                <div class="research-tech">
+                    <span class="tech-tag">SSD</span>
+                    <span class="tech-tag">ResNet-10</span>
+                    <span class="tech-tag">MobileNetV2</span>
+                    <span class="tech-tag">Raspberry Pi</span>
+                </div>
+            </div>
+
+            <div class="research-card">
+                <div class="research-badge">PUBLICATION</div>
+                <h3 class="research-title">Post-Quantum Cybersecurity Through Lattice-Based Cryptography</h3>
+                <p class="research-date">IJERT, Vol. 14, Issue 07 | July 2025</p>
+                <p class="research-description">
+                    Framework for global digital security in the quantum computing era, analyzing lattice-based cryptographic resilience.
+                </p>
+                <a href="#" class="research-link">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    Read Paper
+                </a>
+            </div>
+
+            <div class="research-card">
+                <div class="research-badge">IEEE CONFERENCE</div>
+                <h3 class="research-title">AI-Based Screening Systems for COVID-19</h3>
+                <p class="research-date">IEEE I2CT Conference | April 2022</p>
+                <p class="research-description">
+                    Rapid-prototyping approach for AI-driven health screening systems with real-time deployment capabilities.
+                </p>
+                <a href="https://ieeexplore.ieee.org/document/9824818" class="research-link">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                    </svg>
+                    View Paper
+                </a>
+            </div>
+        </div>
+
+        <div class="talks-section">
+            <h3 class="subsection-title">// Community Leadership</h3>
+            <div class="talks-grid">
+                <div class="talk-card">
+                    <div class="talk-icon">🎤</div>
+                    <h4>GenAI in Action: From Idea to Prototype</h4>
+                    <p class="talk-meta">Guest Lecturer | Nov 2025</p>
+                    <p>Led workshop on LLM workflows and deployment patterns</p>
+                </div>
+                <div class="talk-card">
+                    <div class="talk-icon">🚀</div>
+                    <h4>Technical Mentor - Hackathon Series</h4>
+                    <p class="talk-meta">1,300+ Participants | July & Nov 2025</p>
+                    <p>Provided architectural guidance for AI MVP development</p>
+                </div>
+                <div class="talk-card">
+                    <div class="talk-icon">📚</div>
+                    <h4>Academic to Research Pipeline</h4>
+                    <p class="talk-meta">120+ Students | Dec 2023</p>
+                    <p>Guided conversion of prototypes to IEEE publications</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Initialize Connection</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+            Currently seeking AI/ML Engineering opportunities in Boston & SF Bay Area
+        </p>
+        <div class="contact-links">
+            <a href="mailto:samhita.kolluri@gmail.com" class="contact-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                Email
+            </a>
+            <a href="https://github.com/samhita-kolluri" class="contact-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="https://linkedin.com/in/samhita-kolluri" class="contact-link">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                LinkedIn
+            </a>
+        </div>
+        <p style="margin-top: 3rem; color: var(--primary);">
+            <span class="cursor"></span>
+        </p>
+    </section>
+
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00FF00';
+            ctx.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Typing effect
+        const titles = [
+            'GenAI Engineer',
+            'MLOps Engineer', 
+            'AI Research Engineer',
+            'Building autonomous AI systems since 2020'
+        ];
+        
+        let titleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function type() {
+            const currentTitle = titles[titleIndex];
+            const typingElement = document.getElementById('typing-text');
+            
+            if (!isDeleting) {
+                typingElement.textContent = currentTitle.substring(0, charIndex + 1);
+                charIndex++;
+                
+                if (charIndex === currentTitle.length) {
+                    isDeleting = true;
+                    typingSpeed = 2000; // Pause at end
+                } else {
+                    typingSpeed = 100;
+                }
+            } else {
+                typingElement.textContent = currentTitle.substring(0, charIndex - 1);
+                charIndex--;
+                
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    titleIndex = (titleIndex + 1) % titles.length;
+                    typingSpeed = 500; // Pause before next word
+                } else {
+                    typingSpeed = 50;
+                }
+            }
+            
+            setTimeout(type, typingSpeed);
+        }
+
+        // Start typing effect
+        window.addEventListener('load', () => {
+            type();
+            
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
